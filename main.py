@@ -105,19 +105,6 @@ for event in longpoll.listen():
         user = sql.execute(f'SELECT user FROM users WHERE user = "{event.text}"')
         if user.fetchone() is None:
             pass
-        else:
-            sql.execute(f'SELECT user FROM users')
-            n = 0
-            for i in sql.fetchall():
-                i = str(i).replace("('", '').replace("',)", '')
-                if i == event.text:
-                    sql.execute('SELECT link FROM users')
-                    for x in sql.fetchall():
-                    
-
-                else:
-                    print('fail')
-                    n+=1
                    
   exept:
     pass
