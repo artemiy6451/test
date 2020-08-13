@@ -28,6 +28,7 @@ link TEXT
 db.commit()
 
 for event in longpoll.listen():
+  try:
     if event.type == VkEventType.MESSAGE_NEW:
         if 'https://steamcommunity.com/profiles' in event.text:
             url = event.text
@@ -117,4 +118,6 @@ for event in longpoll.listen():
                 else:
                     print('fail')
                     n+=1
-
+                   
+  exept:
+    pass
