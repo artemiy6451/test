@@ -28,10 +28,9 @@ user TEXT,
 link TEXT
 )""")
 db.commit()
-try:
-  while True:
-      for event in longpoll.listen():
-          try:
+while True:
+    try:
+        for event in longpoll.listen():
             if event.type == VkEventType.MESSAGE_NEW:
                 if 'https://steamcommunity.com/' in event.text:
                     url = event.text
@@ -180,24 +179,22 @@ try:
                         vk.messages.send(user_id='254928937', random_id='0', keyboard=keyboard.get_keyboard(),
                                          message='Дай ссылку на инвентарь')
                         flag = False
-          except Exception:
-              keyboard = vk_api.keyboard.VkKeyboard(one_time=True)
-              sql.execute('SELECT user FROM users')
-              result = sql.fetchall()
-              x = 0
-              for i in result:
-                  i = str(i).replace("('", '').replace("',)", '')
-                  if x == 4 or x == 8 or x == 12 or x == 16 or x == 20:
-                      keyboard.add_line()
-                      keyboard.add_button(i, color=VkKeyboardColor.DEFAULT)
-                      x += 1
-                  else:
-                      keyboard.add_button(i, color=VkKeyboardColor.DEFAULT)
-                      x += 1
-              try:
-                  vk.messages.send(user_id='254928937', random_id='0', keyboard=keyboard.get_keyboard(),
-                                   message='Случилась ошибка')
-              except Exception:
-                  print(Exception)
-except Exception:
-  print(Exception)
+    except Exception:
+        keyboard = vk_api.keyboard.VkKeyboard(one_time=True)
+        sql.execute('SELECT user FROM users')
+        result = sql.fetchall()
+        x = 0
+        for i in result:
+            i = str(i).replace("('", '').replace("',)", '')
+            if x == 4 or x == 8 or x == 12 or x == 16 or x == 20:
+                keyboard.add_line()
+                keyboard.add_button(i, color=VkKeyboardColor.DEFAULT)
+                x += 1
+            else:
+                keyboard.add_button(i, color=VkKeyboardColor.DEFAULT)
+                x += 1
+        try:
+            vk.messages.send(user_id='254928937', random_id='0', keyboard=keyboard.get_keyboard(),
+                             message='Случилась ошибка')
+        except Exception:
+            print(Exception)
