@@ -7,16 +7,16 @@ import sqlite3
 
 session = requests.Session()
 
-vk_session = vk_api.VkApi(token='207b5701fac3bf264fc8bdf0f2416dd4fbad3f54e07d3ca91f77db5414527f04178d5538a639dbad930fc') #Токен вк
+vk_session = vk_api.VkApi(token='') #Токен вк
 
 longpoll = VkLongPoll(vk_session)
 vk = vk_session.get_api()
 
 user_table_id = 0
-user_id = '254928937'
+user_id = ''# User id в Вк
 flag = False
 
-vk.messages.send(user_id='254928937', random_id='0',
+vk.messages.send(user_id=user_id, random_id='0',
                              message='Дай ссылку на инвентарь')
 
 db = sqlite3.connect('server.db')
@@ -109,7 +109,7 @@ while True:
                             else:
                                 keyboard.add_button(i, color=VkKeyboardColor.DEFAULT)
                                 n += 1
-                        vk.messages.send(user_id='254928937', random_id='0',keyboard=keyboard.get_keyboard(),
+                        vk.messages.send(user_id=user_id, random_id='0',keyboard=keyboard.get_keyboard(),
                                          message='Дай ссылку на инвентарь')
                         flag = False
                 user = sql.execute(f'SELECT user FROM users WHERE user = "{event.text}"')
@@ -174,7 +174,7 @@ while True:
                             else:
                                 keyboard.add_button(i, color=VkKeyboardColor.DEFAULT)
                                 x += 1
-                        vk.messages.send(user_id='254928937', random_id='0', keyboard=keyboard.get_keyboard(),
+                        vk.messages.send(user_id=user_id, random_id='0', keyboard=keyboard.get_keyboard(),
                                          message='Дай ссылку на инвентарь')
                         flag = False
         except Exception:
@@ -192,7 +192,7 @@ while True:
                     keyboard.add_button(i, color=VkKeyboardColor.DEFAULT)
                     x += 1
             try:
-                vk.messages.send(user_id='254928937', random_id='0', keyboard=keyboard.get_keyboard(),
+                vk.messages.send(user_id=user_id, random_id='0', keyboard=keyboard.get_keyboard(),
                                  message='Случилась ошибка')
             except Exception:
                 print(Exception)
