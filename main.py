@@ -31,7 +31,7 @@ db.commit()
 
 while True:
     for event in longpoll.listen():
-        #try:
+        try:
         if event.type == VkEventType.MESSAGE_NEW:
             if 'https://steamcommunity.com/' in event.text:
                 url = event.text
@@ -180,7 +180,7 @@ while True:
                     vk.messages.send(user_id='254928937', random_id='0', keyboard=keyboard.get_keyboard(),
                                      message='Дай ссылку на инвентарь')
                     flag = False
-        """except Exception:
+        except Exception:
             keyboard = vk_api.keyboard.VkKeyboard(one_time=True)
             sql.execute('SELECT user FROM users')
             result = sql.fetchall()
@@ -198,4 +198,4 @@ while True:
                 vk.messages.send(user_id='254928937', random_id='0', keyboard=keyboard.get_keyboard(),
                                  message='Случилась ошибка')
             except Exception:
-                print(Exception)"""
+                print(Exception)
